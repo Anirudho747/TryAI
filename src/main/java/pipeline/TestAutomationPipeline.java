@@ -4,7 +4,7 @@ import automation.generator.LLMTestGeneratorSelToWDIO;
 import automation.generator.LLMTestGeneratorSelToPlaywright;
 import automation.generator.LLMTestGeneratorSelToCypress;
 import automation.generator.TestCodeGenerator;
-import testData.SelCode;
+import testData.SampleCodes;
 
 import java.util.Scanner;
 
@@ -20,13 +20,13 @@ public class TestAutomationPipeline {
         int option  = sc.nextInt();
         switch (option) {
             case 1:
-                seleniumToWebDriverIO(SelCode.codes);
+                seleniumToWebDriverIO(SampleCodes.userCode);
                 break;
             case 2:
-                seleniumToPlayWright(SelCode.codes);
+                seleniumToPlayWright(SampleCodes.userCode);
                 break;
             case 3:
-                seleniumToCypress(SelCode.codes);
+                seleniumToCypress(SampleCodes.userCode);
                 break;
             default:
                 System.out.println("Please choose relevant options only");

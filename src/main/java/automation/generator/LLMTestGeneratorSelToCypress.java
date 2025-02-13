@@ -7,7 +7,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-
+import testData.SampleCodes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,37 +24,7 @@ public class LLMTestGeneratorSelToCypress {
         }
         String userPrompt = "Convert Selenium Java test automation code to Cypress TypeScript while preserving the logic and functionality:\n"
                 + seleniumData;
-        String example = "\tExample:\n" +
-                "\n" +
-                "Selenium Java (Input)\n" +
-                "\n" +
-                "```java\n" +
-                "import org.openqa.selenium.WebDriver;\n" +
-                "import org.openqa.selenium.chrome.ChromeDriver;\n" +
-                "\n" +
-                "public class PrintTitle {\n" +
-                "  public static void main(String[] args) {\n" +
-                "    WebDriver driver = new ChromeDriver();\n" +
-                "    driver.get(\"http://playwright.dev\");\n" +
-                "    System.out.println(driver.getTitle());\n" +
-                "    driver.quit();\n" +
-                "  }\n" +
-                "}\n" +
-                "```\n" +
-                "\n" +
-                "Cypress TypeScript (Expected Output)\n" +
-                "\n" +
-                "```typescript\n" +
-                "describe('Has title', () => {\n" +
-                "  it('visits the Cypress homepage', () => {\n" +
-                "    cy.visit('https://cypress.dev/');\n" +
-                "\n" +
-                "    // Expect a title \"to contain\" a substring.\n" +
-                "    cy.title().should('contain', 'Cypress');\n" +
-                "  });\n" +
-                "});;\n" +
-                "});\n" +
-                "```";
+        String example = SampleCodes.seleniumToCypressExample;
 
         try {
             List<Map<String, String>> messages = new ArrayList<>();

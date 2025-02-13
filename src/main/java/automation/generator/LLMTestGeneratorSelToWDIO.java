@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import testData.SampleCodes;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -23,50 +24,7 @@ public class LLMTestGeneratorSelToWDIO {
         }
         String userPrompt = "Convert Selenium Java test automation code to WDIO TypeScript while preserving the logic and functionality:\n"
                 + seleniumData;
-        String example = "\tExample:\n" +
-                "\n" +
-                "Selenium Java (Input)\n" +
-                "\n" +
-                "```java\n" +
-                "import org.openqa.selenium.WebDriver;\n" +
-                "import org.openqa.selenium.chrome.ChromeDriver;\n" +
-                "\n" +
-                "public class PrintTitle {\n" +
-                "  public static void main(String[] args) {\n" +
-                "    WebDriver driver = new ChromeDriver();\n" +
-                "    driver.get(\"http://playwright.dev\");\n" +
-                "    System.out.println(driver.getTitle());\n" +
-                "    driver.quit();\n" +
-                "  }\n" +
-                "}\n" +
-                "```\n" +
-                "\n" +
-                "WDIO TypeScript (Expected Output)\n" +
-                "\n" +
-                "```typescript\n" +
-                "const { expect } = require('@wdio/expect');\n" +
-                "const { remote } = require('webdriverio');\n" +
-                "\n" +
-                "describe('WDIO Page', () => {\n" +
-                "  it('has title', async () => {\n" +
-                "    // Create a new browser instance\n" +
-                "    const browser = await remote({\n" +
-                "      capabilities: {\n" +
-                "        browserName: 'chrome',\n" +
-                "      },\n" +
-                "    });\n" +
-                "\n" +
-                "    // Navigate to the desired URL\n" +
-                "    await browser.url('https://wdio.dev/');\n" +
-                "\n" +
-                "    // Expect a title \"to contain\" a substring\n" +
-                "    await expect(await browser.getTitle()).toContain('WDIO');\n" +
-                "\n" +
-                "    // Close the browser instance\n" +
-                "    await browser.deleteSession();\n" +
-                "  });\n" +
-                "});\n" +
-                "```";
+        String example = SampleCodes.seleniumToWDIOExample;
 
         try {
             List<Map<String, String>> messages = new ArrayList<>();
