@@ -1,15 +1,16 @@
 package pipeline;
 
-import automation.generator.LLMTestGenerator;
+import automation.generator.LLMTestGeneratorSelToWDIO;
+import automation.generator.LLMTestGeneratorSelToPlaywright;
+import automation.generator.LLMTestGeneratorSelToCypress;
 import automation.generator.TestCodeGenerator;
 
 public class TestAutomationPipeline {
 
     public static void main(String[] args) {
 
-        // 1. Parse the Swagger/OpenAPI spec
 
-        String apiDetails = "package tests;\n" +
+        String selCode = "package tests;\n" +
                 "\n" +
                 "import java.time.Duration;\n" +
                 "\n" +
@@ -82,11 +83,45 @@ public class TestAutomationPipeline {
                 "\n" +
                 "} ";
 
-        // 2. Generate test case outline using LLM
-        LLMTestGenerator llmGen = new LLMTestGenerator();
-        String llmRawOutput = llmGen.generateTestCases(apiDetails);
 
-        // 3. Extract only the Java code from the LLM response
+     //   seleniumToWebDriverIO(selCode);
+     //   seleniumToPlayWright(selCode);
+        seleniumToCypress(selCode);
+    }
+
+    public static void seleniumToWebDriverIO(String originalCode)
+    {
+        // Generate test case outline using LLM
+        LLMTestGeneratorSelToWDIO llmGen = new LLMTestGeneratorSelToWDIO();
+        String llmRawOutput = llmGen.generateTestCases(originalCode);
+
+        // Extract only the Java code from the LLM response
+        TestCodeGenerator codeGen = new TestCodeGenerator();
+        String finalTestCode = codeGen.extractTSCode(llmRawOutput);
+
+        System.out.println("Generated test code written to " + finalTestCode);
+    }
+
+    public static void seleniumToPlayWright(String originalCode)
+    {
+        // Generate test case outline using LLM
+        LLMTestGeneratorSelToPlaywright llmGen = new LLMTestGeneratorSelToPlaywright();
+        String llmRawOutput = llmGen.generateTestCases(originalCode);
+
+        // Extract only the Java code from the LLM response
+        TestCodeGenerator codeGen = new TestCodeGenerator();
+        String finalTestCode = codeGen.extractTSCode(llmRawOutput);
+
+        System.out.println("Generated test code written to " + finalTestCode);
+    }
+
+    public static void seleniumToCypress(String originalCode)
+    {
+        // Generate test case outline using LLM
+        LLMTestGeneratorSelToCypress llmGen = new LLMTestGeneratorSelToCypress();
+        String llmRawOutput = llmGen.generateTestCases(originalCode);
+
+        // Extract only the Java code from the LLM response
         TestCodeGenerator codeGen = new TestCodeGenerator();
         String finalTestCode = codeGen.extractTSCode(llmRawOutput);
 

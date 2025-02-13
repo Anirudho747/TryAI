@@ -12,7 +12,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-public class LLMTestGenerator {
+public class LLMTestGeneratorSelToWDIO {
 
     private static final String LLM_API_URL = "https://api.groq.com/openai/v1/chat/completions";
     private static final String API_KEY = "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";
@@ -43,11 +43,11 @@ public class LLMTestGenerator {
                 "\n" +
                 "WDIO TypeScript (Expected Output)\n" +
                 "\n" +
-                "```javascript\n" +
+                "```typescript\n" +
                 "const { expect } = require('@wdio/expect');\n" +
                 "const { remote } = require('webdriverio');\n" +
                 "\n" +
-                "describe('Playwright Page', () => {\n" +
+                "describe('WDIO Page', () => {\n" +
                 "  it('has title', async () => {\n" +
                 "    // Create a new browser instance\n" +
                 "    const browser = await remote({\n" +
