@@ -5,6 +5,8 @@ import automation.generator.LLMTestGeneratorSelToPlaywright;
 import automation.generator.LLMTestGeneratorSelToCypress;
 import automation.generator.TestCodeGenerator;
 
+import java.util.Scanner;
+
 public class TestAutomationPipeline {
 
     public static void main(String[] args) {
@@ -82,11 +84,27 @@ public class TestAutomationPipeline {
                 "}\n" +
                 "\n" +
                 "} ";
+        Scanner sc = new Scanner(System.in);
 
+        System.out.println("Please select your relevant option");
+        System.out.println("1 : Selenium Java to WDIO TS");
+        System.out.println("2 : Selenium Java to Playwright TS");
+        System.out.println("3 : Selenium Java to Cypress TS");
+        int option  = sc.nextInt();
+        switch (option) {
+            case 1:
+                seleniumToWebDriverIO(selCode);
+                break;
+            case 2:
+                seleniumToPlayWright(selCode);
+                break;
+            case 3:
+                seleniumToCypress(selCode);
+                break;
+            default:
+                System.out.println("Please choose relevant options only");
+        }
 
-     //   seleniumToWebDriverIO(selCode);
-     //   seleniumToPlayWright(selCode);
-        seleniumToCypress(selCode);
     }
 
     public static void seleniumToWebDriverIO(String originalCode)
