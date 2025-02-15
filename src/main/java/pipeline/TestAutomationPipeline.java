@@ -4,6 +4,7 @@ import automation.generator.LLMTestGeneratorSelToWDIO;
 import automation.generator.LLMTestGeneratorSelToPlaywright;
 import automation.generator.LLMTestGeneratorSelToCypress;
 import automation.generator.TestCodeGenerator;
+import automation.generator.LLMTestCaseGenerator;
 import testData.SampleCodes;
 
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class TestAutomationPipeline {
         System.out.println("1 : Selenium Java to WDIO TS");
         System.out.println("2 : Selenium Java to Playwright TS");
         System.out.println("3 : Selenium Java to Cypress TS");
+        System.out.println("4 : Jira Story to Test Cases");
         int option  = sc.nextInt();
         switch (option) {
             case 1:
@@ -27,6 +29,9 @@ public class TestAutomationPipeline {
                 break;
             case 3:
                 seleniumToCypress(SampleCodes.userCode);
+                break;
+            case 4:
+                jiraToStory(SampleCodes.jiraStory);
                 break;
             default:
                 System.out.println("Please choose relevant options only");
@@ -68,5 +73,15 @@ public class TestAutomationPipeline {
         TestCodeGenerator codeGen = new TestCodeGenerator();
         System.out.println("Generated test code is " );
         codeGen.extractTSCode(llmRawOutput);
+    }
+
+    public static void jiraToStory(String jiraStory)
+    {
+        LLMTestCaseGenerator llmGen = new LLMTestCaseGenerator();
+        String llmRawOutput = llmGen.generateTestcases(jiraStory);
+
+        TestCodeGenerator codeGen = new TestCodeGenerator();
+        System.out.println("Generated test case is " );
+        codeGen.extractTestCase(llmRawOutput);
     }
 }
