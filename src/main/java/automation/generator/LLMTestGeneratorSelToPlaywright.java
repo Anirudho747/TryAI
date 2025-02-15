@@ -18,7 +18,7 @@ public class LLMTestGeneratorSelToPlaywright {
     private static final String LLM_API_URL = "https://api.groq.com/openai/v1/chat/completions";
     private static final String API_KEY = "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";
 
-    public String generateTestCases(String seleniumData) {
+    public String generateTScode(String seleniumData) {
         if (seleniumData == null || seleniumData.isEmpty()) {
             return "No valid Selenium code to generate test cases.";
         }

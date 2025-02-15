@@ -42,34 +42,31 @@ public class TestAutomationPipeline {
 
         // Extract only the Java code from the LLM response
         TestCodeGenerator codeGen = new TestCodeGenerator();
-        String finalTestCode = codeGen.extractTSCode(llmRawOutput);
-
-        System.out.println("Generated test code written to " + finalTestCode);
+        System.out.println("Generated test code is " );
+        codeGen.extractTSCode(llmRawOutput);
     }
 
     public static void seleniumToPlayWright(String originalCode)
     {
         // Generate test case outline using LLM
         LLMTestGeneratorSelToPlaywright llmGen = new LLMTestGeneratorSelToPlaywright();
-        String llmRawOutput = llmGen.generateTestCases(originalCode);
+        String llmRawOutput = llmGen.generateTScode(originalCode);
 
         // Extract only the Java code from the LLM response
         TestCodeGenerator codeGen = new TestCodeGenerator();
-        String finalTestCode = codeGen.extractTSCode(llmRawOutput);
-
-        System.out.println("Generated test code written to " + finalTestCode);
+        System.out.println("Generated test code is " );
+        codeGen.extractTSCode(llmRawOutput);
     }
 
     public static void seleniumToCypress(String originalCode)
     {
         // Generate test case outline using LLM
         LLMTestGeneratorSelToCypress llmGen = new LLMTestGeneratorSelToCypress();
-        String llmRawOutput = llmGen.generateTestCases(originalCode);
+        String llmRawOutput = llmGen.generateTScode(originalCode);
 
         // Extract only the Java code from the LLM response
         TestCodeGenerator codeGen = new TestCodeGenerator();
-        String finalTestCode = codeGen.extractTSCode(llmRawOutput);
-
-        System.out.println("Generated test code written to " + finalTestCode);
+        System.out.println("Generated test code is " );
+        codeGen.extractTSCode(llmRawOutput);
     }
 }
