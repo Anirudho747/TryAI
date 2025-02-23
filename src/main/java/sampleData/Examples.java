@@ -163,4 +163,16 @@ public class Examples {
                        "\n" +
                        "\n";
 
+       public static String voiceToTextExample =
+               "Example\n" +
+                       "Instruction :Please provide a simple Voice to text conversion for the attached voice recording\n"+
+                       "Context : I am preparing a platform to automatically convert Voice Commands to Text Instructions\n" +
+                       "Example :\n" +
+                       "When I play the file saved in\n" +
+                       "src/main/java/sampleData/ExampleVoice.m4a" +
+                       "I get below text ”\n" +
+                       " This is just a sample audio file to check if the conversion is happening properly.\n" +
+                       "\n" +
+                       "Output should be in word format";
+
 }

@@ -1,4 +1,4 @@
-package automation.generator;
+package generator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,29 +13,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LLMTestCaseGenerator {
+public class LLMCodeGeneratorSelToPlaywright {
 
     private static final String LLM_API_URL = "https://api.groq.com/openai/v1/chat/completions";
     private static final String API_KEY = "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";
 
-    public String generateTestcases(String jiraStory)
-    {
-        if (jiraStory == null || jiraStory.isEmpty())
-        {
-            return "No valid Jira Story to generate test cases.";
+    public String generateTScode(String seleniumData) {
+        if (seleniumData == null || seleniumData.isEmpty()) {
+            return "No valid Selenium code to generate test cases.";
         }
-        String userPrompt = "Generate Test cases from provided Jira Stories while preserving the logic and functionality:\n"
-                + jiraStory;
-        String example = Examples.jiraToTestCaseExample;
+        String userPrompt = "Convert Selenium Java test automation code to Playwright TypeScript while preserving the logic and functionality:\n"
+                + seleniumData;
+        String example = Examples.seleniumToPlayWrightExample;
 
         try {
             List<Map<String, String>> messages = new ArrayList<>();
             Map<String, String> systemMessage = new HashMap<>();
             systemMessage.put("role", "system");
-            systemMessage.put("content", "I am preparing a platform to directly change a Story to relevant test cases. I  cannot afford any Test case to be missed out"
-                    + example
-                    +"-- Output :   The output must be in a tabular format\n"
-                    +"Persona : You are a Manual tester having a decade of experience in Functional, Performance, API & Security testing. You are in PIP and a single missed test casein lead to job loss");
+            systemMessage.put("content", "Ensure that the converted code follows Playwright's best practices, including:"
+                    + "-- Proper async/await usage for handling asynchronous operations."
+                    + "-- Selectors conversion (e.g., By.id() → page.locator() equivalent)."
+                    + "-- Handling of waits (Implicit/Explicit waits should be replaced with Playwright’s auto-waiting)."
+                    + "-- Assertions should be mapped to Playwright’s test assertions if applicable."
+                    + "-- Maintain proper TypeScript typings (Page, Browser, etc.) and use ES6+ features where appropriate"
+                    + "-- Optimize code structure, removing unnecessary waits or redundant calls."
+                    + "-- The output must be idiomatic Playwright TypeScript, not just a direct Java-to-TypeScript translation"
+                    + "-- DO NOT add any additional steps other than given input code"
+                    + "-- Disable strict mode violation when finding locators"
+                    + "-- Example: "+example);
+
             messages.add(systemMessage);
             Map<String, String> userMessage = new HashMap<>();
             userMessage.put("role", "user");
@@ -45,7 +51,7 @@ public class LLMTestCaseGenerator {
             payload.put("model", "deepseek-r1-distill-llama-70b");
             payload.put("messages", messages);
             payload.put("temperature", 0.2);
-            //         payload.put("max_tokens", 1500);
+   //         payload.put("max_tokens", 1500);
             ObjectMapper mapper = new ObjectMapper();
             String requestBody = mapper.writeValueAsString(payload);
             return callLLMApi(requestBody);
@@ -53,7 +59,7 @@ public class LLMTestCaseGenerator {
             e.printStackTrace();
             return "Error building JSON payload: " + e.getMessage();
         }
-        }
+    }
 
     private String callLLMApi(String requestBody) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -69,5 +75,4 @@ public class LLMTestCaseGenerator {
             return "Error calling LLM API: " + e.getMessage();
         }
     }
-        
 }

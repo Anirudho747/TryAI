@@ -1,43 +1,41 @@
-package automation.generator;
+package generator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import sampleData.Examples;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class LLMTestCaseGeneratorFromSwagger {
+public class LLMTestCaseGenerator {
 
     private static final String LLM_API_URL = "https://api.groq.com/openai/v1/chat/completions";
     private static final String API_KEY = "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";
 
-    public String generateTestCases(String apiDetails) {
-        if (apiDetails == null || apiDetails.isEmpty()) {
-            return "No valid API details to generate test cases.";
+    public String generateTestcases(String jiraStory)
+    {
+        if (jiraStory == null || jiraStory.isEmpty())
+        {
+            return "No valid Jira Story to generate test cases.";
         }
-        String userPrompt = "Generate REST API test cases using Rest Assured (Java, TestNG) for the following API specification:\n"
-                + apiDetails;
+        String userPrompt = "Generate Test cases from provided Jira Stories while preserving the logic and functionality:\n"
+                + jiraStory;
+        String example = Examples.jiraToTestCaseExample;
+
         try {
             List<Map<String, String>> messages = new ArrayList<>();
             Map<String, String> systemMessage = new HashMap<>();
             systemMessage.put("role", "system");
-            systemMessage.put("content", "You are a helpful assistant that generates Java code for API tests. "
-                    + "Your response must contain only Java code enclosed in a single code block using triple backticks (```java ... ```). "
-                    + "- Do not include any additional text explanations. "
-                    + "- Be a complete and executable Java class. "
-                    + "- Use only standard and correct imports (e.g., org.testng.Assert, io.restassured.RestAssured). "
-                    + "- Also do not include any additional tests other than positive test"
-                    + "- Add package as automation.tests"
-                    + "- Write comments on the code"
-                    + "- Print output of the API response"
-                    + "- Use BeforeMethod of Testng with hardcoded baseURI");
-
+            systemMessage.put("content", "I am preparing a platform to directly change a Story to relevant test cases. I  cannot afford any Test case to be missed out"
+                    + example
+                    +"-- Output :   The output must be in a tabular format\n"
+                    +"Persona : You are a Manual tester having a decade of experience in Functional, Performance, API & Security testing. You are in PIP and a single missed test casein lead to job loss");
             messages.add(systemMessage);
             Map<String, String> userMessage = new HashMap<>();
             userMessage.put("role", "user");
@@ -47,7 +45,7 @@ public class LLMTestCaseGeneratorFromSwagger {
             payload.put("model", "deepseek-r1-distill-llama-70b");
             payload.put("messages", messages);
             payload.put("temperature", 0.2);
-            payload.put("max_tokens", 1500);
+            //         payload.put("max_tokens", 1500);
             ObjectMapper mapper = new ObjectMapper();
             String requestBody = mapper.writeValueAsString(payload);
             return callLLMApi(requestBody);
@@ -55,9 +53,7 @@ public class LLMTestCaseGeneratorFromSwagger {
             e.printStackTrace();
             return "Error building JSON payload: " + e.getMessage();
         }
-
-
-    }
+        }
 
     private String callLLMApi(String requestBody) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -73,4 +69,5 @@ public class LLMTestCaseGeneratorFromSwagger {
             return "Error calling LLM API: " + e.getMessage();
         }
     }
+        
 }

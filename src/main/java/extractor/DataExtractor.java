@@ -1,13 +1,13 @@
-package automation.generator;
+package extractor;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class TestCodeGenerator {
+public class DataExtractor {
 
-    private static final Log log = LogFactory.getLog(TestCodeGenerator.class);
+    private static final Log log = LogFactory.getLog(DataExtractor.class);
 
     public String extractTSCode(String llmResponse) {
         String content="";
@@ -88,6 +88,26 @@ public class TestCodeGenerator {
                     content = content.substring(index).trim();
                 }
                 //  System.out.println(content);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//
+        return(content);
+    }
+
+    public String extractVoiceText(String llmResponse) {
+        System.out.println(llmResponse + "fgnsdjgg");
+        String content="";
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(llmResponse);
+            JsonNode choicesNode = rootNode.path("choices");
+            System.out.println(choicesNode+ "ffvbdhdsbfh");
+            if (choicesNode.isArray() && choicesNode.size() > 0) {
+                JsonNode messageNode = choicesNode.get(0).path("message");
+                content = messageNode.path("content").asText().trim();
+                System.out.println(content+"vdsvvdf");
             }
         } catch (Exception e) {
             e.printStackTrace();

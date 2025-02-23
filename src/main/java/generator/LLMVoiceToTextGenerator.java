@@ -1,4 +1,4 @@
-package automation.generator;
+package generator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -8,39 +8,33 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import sampleData.Examples;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LLMCodeGeneratorSelToCypress {
+public class LLMVoiceToTextGenerator {
 
-    private static final String LLM_API_URL = "https://api.groq.com/openai/v1/chat/completions";
+    private static final String LLM_API_URL = "https://api.groq.com/openai/v1/audio/transcriptions";
     private static final String API_KEY = "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";
 
-    public String generateTScode(String seleniumData) {
-        if (seleniumData == null || seleniumData.isEmpty()) {
-            return "No valid Selenium code to generate test cases.";
-        }
-        String userPrompt = "Convert Selenium Java test automation code to Cypress TypeScript while preserving the logic and functionality:\n"
-                + seleniumData;
-        String example = Examples.seleniumToCypressExample;
+    public String generateTextFromVoice()
+    {
+        String path = "src/main/java/testData/TestVoice.m4a";
+        String userPrompt = "Convert voice file to text\n"
+                + path;
+        String example = Examples.voiceToTextExample;
 
         try {
             List<Map<String, String>> messages = new ArrayList<>();
             Map<String, String> systemMessage = new HashMap<>();
             systemMessage.put("role", "system");
-            systemMessage.put("content", "Ensure that the converted code follows Cypress's best practices, including:"
-                    + "-- Proper async/await usage for handling asynchronous operations."
-                    + "-- Selectors conversion (e.g., By.id() → page.locator() equivalent)."
-                    + "-- Handling of waits (Implicit/Explicit waits should be replaced with Cypress’s auto-waiting)."
-                    + "-- Assertions should be mapped to Cypress’s test assertions if applicable."
-                    + "-- Maintain proper TypeScript typings (Page, Browser, etc.) and use ES6+ features where appropriate"
-                    + "-- Optimize code structure, removing unnecessary waits or redundant calls."
-                    + "-- The output must be idiomatic Cypress TypeScript, not just a direct Java-to-TypeScript translation"
-                    + "-- DO NOT add any additional steps other than given input code"
-                    + "-- Disable strict mode violation when finding locators"
-                    + "-- Example: "+example);
+            systemMessage.put("content", "Instruction :Please provide a simple Voice to text conversion for the attached voice recording present in"
+                    + path
+                    + "-- Context : I am preparing a platform to automatically convert Voice Commands to Text Instructions"
+                    + example
+                    + "-- Output should be in word format");
 
             messages.add(systemMessage);
             Map<String, String> userMessage = new HashMap<>();
@@ -48,10 +42,10 @@ public class LLMCodeGeneratorSelToCypress {
             userMessage.put("content", userPrompt);
             messages.add(userMessage);
             Map<String, Object> payload = new HashMap<>();
-            payload.put("model", "deepseek-r1-distill-llama-70b");
+            payload.put("model", "whisper-large-v3");
             payload.put("messages", messages);
             payload.put("temperature", 0.2);
-   //         payload.put("max_tokens", 1500);
+            //         payload.put("max_tokens", 1500);
             ObjectMapper mapper = new ObjectMapper();
             String requestBody = mapper.writeValueAsString(payload);
             return callLLMApi(requestBody);

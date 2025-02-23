@@ -1,11 +1,10 @@
-package automation.generator;
+package generator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import sampleData.Examples;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -13,34 +12,31 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-public class LLMCodeGeneratorSelToWDIO {
+public class LLMTestCaseGeneratorFromSwagger {
 
     private static final String LLM_API_URL = "https://api.groq.com/openai/v1/chat/completions";
     private static final String API_KEY = "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";
 
-    public String generateTestCases(String seleniumData) {
-        if (seleniumData == null || seleniumData.isEmpty()) {
-            return "No valid Selenium code to generate test cases.";
+    public String generateTestCases(String apiDetails) {
+        if (apiDetails == null || apiDetails.isEmpty()) {
+            return "No valid API details to generate test cases.";
         }
-        String userPrompt = "Convert Selenium Java test automation code to WDIO TypeScript while preserving the logic and functionality:\n"
-                + seleniumData;
-        String example = Examples.seleniumToWDIOExample;
-
+        String userPrompt = "Generate REST API test cases using Rest Assured (Java, TestNG) for the following API specification:\n"
+                + apiDetails;
         try {
             List<Map<String, String>> messages = new ArrayList<>();
             Map<String, String> systemMessage = new HashMap<>();
             systemMessage.put("role", "system");
-            systemMessage.put("content", "Ensure that the converted code follows WDIO’s best practices, including "
-                    + "-- Proper async/await usage for handling asynchronous operations."
-                    + "-- Selectors conversion (e.g., By.id() → page.locator() equivalent)."
-                    + "-- Handling of waits (Implicit/Explicit waits should be replaced with WDIO’s auto-waiting)."
-                    + "-- Assertions should be mapped to WDIO’s test assertions if applicable."
-                    + "-- Maintain proper TypeScript typings (Page, Browser, etc.) and use ES6+ features where appropriate"
-                    + "-- Optimize code structure, removing unnecessary waits or redundant calls."
-                    + "-- The output must be idiomatic WDIO TypeScript, not just a direct Java-to-TypeScript translation"
-                    + "-- DO NOT add any additional steps other than given input code"
-                    + "-- Disable strict mode violation when finding locators"
-                    + "-- Example: "+example);
+            systemMessage.put("content", "You are a helpful assistant that generates Java code for API tests. "
+                    + "Your response must contain only Java code enclosed in a single code block using triple backticks (```java ... ```). "
+                    + "- Do not include any additional text explanations. "
+                    + "- Be a complete and executable Java class. "
+                    + "- Use only standard and correct imports (e.g., org.testng.Assert, io.restassured.RestAssured). "
+                    + "- Also do not include any additional tests other than positive test"
+                    + "- Add package as automation.tests"
+                    + "- Write comments on the code"
+                    + "- Print output of the API response"
+                    + "- Use BeforeMethod of Testng with hardcoded baseURI");
 
             messages.add(systemMessage);
             Map<String, String> userMessage = new HashMap<>();
@@ -51,7 +47,7 @@ public class LLMCodeGeneratorSelToWDIO {
             payload.put("model", "deepseek-r1-distill-llama-70b");
             payload.put("messages", messages);
             payload.put("temperature", 0.2);
-   //         payload.put("max_tokens", 1500);
+            payload.put("max_tokens", 1500);
             ObjectMapper mapper = new ObjectMapper();
             String requestBody = mapper.writeValueAsString(payload);
             return callLLMApi(requestBody);
@@ -59,6 +55,8 @@ public class LLMCodeGeneratorSelToWDIO {
             e.printStackTrace();
             return "Error building JSON payload: " + e.getMessage();
         }
+
+
     }
 
     private String callLLMApi(String requestBody) {
