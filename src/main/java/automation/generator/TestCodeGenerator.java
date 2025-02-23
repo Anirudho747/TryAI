@@ -5,20 +5,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.Console;
-
 public class TestCodeGenerator {
 
     private static final Log log = LogFactory.getLog(TestCodeGenerator.class);
 
-    public void extractTSCode(String llmResponse) {
+    public String extractTSCode(String llmResponse) {
         String content="";
         try
         {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(llmResponse);
             JsonNode choicesNode = rootNode.path("choices");
-            if (choicesNode.isArray() && choicesNode.size() > 0) {
+            if (choicesNode.isArray() && choicesNode.size() > 0)
+            {
                 JsonNode messageNode = choicesNode.get(0).path("message");
                 content = messageNode.path("content").asText().trim();
                 if (content.contains("```typescript")) {
@@ -31,16 +30,16 @@ public class TestCodeGenerator {
                     int index = content.indexOf("export");
                     content = content.substring(index).trim();
                 }
-            //    System.out.println(content);
+              //  System.out.println(content);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
        // return convertToJavaCode(llmResponse);
-        System.out.println(content);
+        return(content);
     }
 
-    public void extractTestCase(String llmResponse) {
+    public String extractTestCase(String llmResponse) {
         String content="";
         try
         {
@@ -54,7 +53,7 @@ public class TestCodeGenerator {
                     int start = content.indexOf("Serial Number");
                     int end = content.lastIndexOf("Serial Number");
                     if (start != -1 && end != -1 && end > start) {
-                        content = content.substring(start + "```Serial Number".length(), end).trim();
+                        content = content.substring(start + "```testcases".length(), end).trim();
                     }
                 } else if (content.contains("Test Case")) {
                     int index = content.indexOf("Test Case");
@@ -66,7 +65,7 @@ public class TestCodeGenerator {
             e.printStackTrace();
         }
         // return convertToJavaCode(llmResponse);
-        System.out.println(content);
+        return(content);
     }
 
     public String convertToJavaCode(String extractedCode)

@@ -218,76 +218,22 @@ public class SampleCodes {
                        "\n" +
                        "Test cases for the above Story\n" +
                        "\n" +
-                       "Test Case 1: Valid Login\n" +
-                       "* Preconditions: The user has a valid username and password.\n" +
-                       "* Steps:\n" +
-                       "    1. Launch the ecommerce web application.\n" +
-                       "    2. Enter a valid username in the username field.\n" +
-                       "    3. Enter a valid password in the password field.\n" +
-                       "    4. Click the \"Submit\" button.\n" +
-                       "* Expected Result: The user is logged in to the application and redirected to their account dashboard or home page.\n" +
-                       "Test Case 2: Invalid Login\n" +
-                       "* Preconditions: The user has an invalid username or password.\n" +
-                       "* Steps:\n" +
-                       "    1. Launch the ecommerce web application.\n" +
-                       "    2. Enter an invalid username in the username field.\n" +
-                       "    3. Enter a valid password in the password field.\n" +
-                       "    4. Click the \"Submit\" button.\n" +
-                       "* Expected Result: An error message is displayed indicating that the username or password is invalid.\n" +
-                       "Test Case 3: Forgot Password\n" +
-                       "* Preconditions: The user has forgotten their password.\n" +
-                       "* Steps:\n" +
-                       "    1. Launch the ecommerce web application.\n" +
-                       "    2. Check the \"Forgot Password\" checkbox.\n" +
-                       "    3. Click the \"Submit\" button.\n" +
-                       "* Expected Result: The user is redirected to the password recovery page.\n" +
-                       "Test Case 4: Username Field Validation\n" +
-                       "* Preconditions: The user attempts to enter invalid characters in the username field.\n" +
-                       "* Steps:\n" +
-                       "    1. Launch the ecommerce web application.\n" +
-                       "    2. Enter a username with invalid characters (e.g. only special characters).\n" +
-                       "    3. Verify that the username field accepts alphanumeric characters and special characters.\n" +
-                       "* Expected Result: The username field accepts alphanumeric characters and special characters.\n" +
-                       "Test Case 5: Password Field Masking\n" +
-                       "* Preconditions: The user attempts to enter a password.\n" +
-                       "* Steps:\n" +
-                       "    1. Launch the ecommerce web application.\n" +
-                       "    2. Enter a password in the password field.\n" +
-                       "    3. Verify that the password field is masked for security purposes.\n" +
-                       "* Expected Result: The password field is masked for security purposes.\n" +
-                       "Test Case 6: Caching Mechanism\n" +
-                       "* Preconditions: The user logs in to the application and is redirected to their account dashboard or home page.\n" +
-                       "* Steps:\n" +
-                       "    1. Launch the ecommerce web application.\n" +
-                       "    2. Log in to the application with a valid username and password.\n" +
-                       "    3. Wait for 30 minutes of inactivity.\n" +
-                       "    4. Verify that the user is logged out automatically.\n" +
-                       "* Expected Result: The user is logged out automatically after 30 minutes of inactivity.\n" +
-                       "Test Case 7: Multiple Failed Login Attempts\n" +
-                       "* Preconditions: The user attempts to log in with invalid credentials multiple times.\n" +
-                       "* Steps:\n" +
-                       "    1. Launch the ecommerce web application.\n" +
-                       "    2. Enter invalid credentials multiple times.\n" +
-                       "    3. Verify that an error message is displayed indicating that the username or password is invalid.\n" +
-                       "* Expected Result: An error message is displayed indicating that the username or password is invalid.\n" +
-                       "Test Case 8: Browser and Device Compatibility\n" +
-                       "* Preconditions: The user attempts to log in to the application on different browsers and devices.\n" +
-                       "* Steps:\n" +
-                       "    1. Launch the ecommerce web application on different browsers (e.g. Chrome, Firefox, Safari).\n" +
-                       "    2. Launch the ecommerce web application on different devices (e.g. desktop, laptop, mobile).\n" +
-                       "    3. Log in to the application with a valid username and password on each browser and device.\n" +
-                       "* Expected Result: The application is compatible with different browsers and devices.\n" +
-                       "Test Case 9: Edge Cases\n" +
-                       "* Preconditions: The user attempts to log in with edge cases (e.g. empty username or password).\n" +
-                       "* Steps:\n" +
-                       "    1. Launch the ecommerce web application.\n" +
-                       "    2. Enter an empty username or password.\n" +
-                       "    3. Verify that an error message is displayed indicating that the username or password is invalid.\n" +
-                       "* Expected Result: An error message is displayed indicating that the username or password is invalid.\n" +
+                       "```testcases\n" +
+                       "**Test Cases for Ecommerce Web Application**\n" +
                        "\n" +
+                       "| **Test Case ID** | **Test Case Description** | **Preconditions** | **Steps** | **Expected Result** |\n" +
+                       "| --- | --- | --- | --- | --- |\n" +
+                       "| 1 | Valid Login | Valid username and password | 1. Launch the ecommerce web application, 2. Enter a valid username in the username field, 3. Enter a valid password in the password field, 4. Click the \"Submit\" button to login to the application | User is logged in to the application and redirected to their account dashboard or home page |\n" +
+                       "| 2 | Invalid Login | Invalid username or password | 1. Launch the ecommerce web application, 2. Enter an invalid username in the username field, 3. Enter a valid password in the password field, 4. Click the \"Submit\" button to attempt to login to the application | An error message is displayed indicating that the username or password is invalid |\n" +
+                       "| 3 | Forgot Password | Forgotten password | 1. Launch the ecommerce web application, 2. Check the \"Forgot Password\" checkbox, 3. Click the \"Submit\" button to request a password reset, 4. Verify that the user is redirected to the password recovery page | The user is redirected to the password recovery page where they can reset their password |\n" +
+                       "| 4 | Username Field Validation | Invalid characters in username field | 1. Launch the ecommerce web application, 2. Enter a username with invalid characters (e.g. only special characters) in the username field, 3. Verify that the username field accepts alphanumeric characters and special characters, 4. Check that the application does not throw an error for valid username characters | The username field accepts alphanumeric characters and special characters, and does not throw an error for valid username characters |\n" +
+                       "| 5 | Password Field Masking | Password entry | 1. Launch the ecommerce web application, 2. Enter a password in the password field, 3. Verify that the password field is masked for security purposes (e.g. bullets or asterisks are displayed instead of the actual password), 4. Check that the password field masking is consistent throughout the application | The password field is masked for security purposes, and the masking is consistent throughout the application |\n" +
+                       "| 6 | Caching Mechanism | 30 minutes of inactivity after login | 1. Launch the ecommerce web application, 2. Log in to the application with a valid username and password, 3. Wait for 30 minutes of inactivity, 4. Verify that the user is automatically logged out of the application after 30 minutes of inactivity | The user is automatically logged out of the application after 30 minutes of inactivity |\n" +
+                       "| 7 | Multiple Failed Login Attempts | Multiple attempts with invalid credentials | 1. Launch the ecommerce web application, 2. Enter invalid credentials (username and/or password) multiple times, 3. Verify that an error message is displayed indicating that the username or password is invalid, 4. Check that the application does not allow the user to login with invalid credentials | An error message is displayed indicating that the username or password is invalid, and the application does not allow the user to login with invalid credentials |\n" +
+                       "| 8 | Browser and Device Compatibility | Different browsers and devices | 1. Launch the ecommerce web application on different browsers (e.g. Chrome, Firefox, Safari), 2. Launch the ecommerce web application on different devices (e.g. desktop, laptop, mobile), 3. Log in to the application with a valid username and password on each browser and device, 4. Verify that the application is compatible with different browsers and devices | The application is compatible with different browsers and devices, and the user can login and use the application without any issues |\n" +
+                       "| 9 | Edge Cases | Empty username or password | 1. Launch the ecommerce web application, 2. Enter an empty username or password, 3. Verify that an error message is displayed indicating that the username or password is invalid, 4. Check that the application does not allow the user to login with empty or invalid credentials | An error message is displayed indicating that the username or password is invalid, and the application does not allow the user to login with empty or invalid credentials" +
                        "\n" +
-                       "Output :   The output must be in a csv format\n" +
-                       "Persona : You are a Manual tester having a decade of experience in Functional, Performance, API & Security testing. You are in PIP and a single missed test casein lead to job loss";
+                       "\n";
 
        public static String jiraStory =
                "JIRA Story: Title: As a user, I want to be able to move unused items from my cart to the \"Buy Later\" section so that I can purchase them later. \n" +

@@ -17,7 +17,7 @@ import java.util.Map;
 public class LLMTestCaseGenerator {
 
     private static final String LLM_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
 
     public String generateTestcases(String jiraStory)
     {
@@ -35,7 +35,7 @@ public class LLMTestCaseGenerator {
             systemMessage.put("role", "system");
             systemMessage.put("content", "I am preparing a platform to directly change a Story to relevant test cases. I  cannot afford any Test case to be missed out"
                     + example
-                    +"-- Output :   The output must be in a csv format\n"
+                    +"-- Output :   The output must be in a tabular format\n"
                     +"Persona : You are a Manual tester having a decade of experience in Functional, Performance, API & Security testing. You are in PIP and a single missed test casein lead to job loss");
             messages.add(systemMessage);
             Map<String, String> userMessage = new HashMap<>();

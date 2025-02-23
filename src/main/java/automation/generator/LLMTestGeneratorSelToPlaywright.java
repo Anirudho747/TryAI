@@ -16,7 +16,7 @@ import java.util.Map;
 public class LLMTestGeneratorSelToPlaywright {
 
     private static final String LLM_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
 
     public String generateTScode(String seleniumData) {
         if (seleniumData == null || seleniumData.isEmpty()) {
