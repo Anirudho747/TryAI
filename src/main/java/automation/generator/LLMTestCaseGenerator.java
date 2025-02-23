@@ -7,7 +7,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import testData.SampleCodes;
+import sampleData.Examples;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +26,7 @@ public class LLMTestCaseGenerator {
         }
         String userPrompt = "Generate Test cases from provided Jira Stories while preserving the logic and functionality:\n"
                 + jiraStory;
-        String example = SampleCodes.jiraToTestCaseExample;
+        String example = Examples.jiraToTestCaseExample;
 
         try {
             List<Map<String, String>> messages = new ArrayList<>();

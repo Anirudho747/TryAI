@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import testData.SampleCodes;
+import sampleData.Examples;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -24,7 +24,7 @@ public class LLMCodeGeneratorSelToWDIO {
         }
         String userPrompt = "Convert Selenium Java test automation code to WDIO TypeScript while preserving the logic and functionality:\n"
                 + seleniumData;
-        String example = SampleCodes.seleniumToWDIOExample;
+        String example = Examples.seleniumToWDIOExample;
 
         try {
             List<Map<String, String>> messages = new ArrayList<>();

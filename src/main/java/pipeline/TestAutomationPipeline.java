@@ -8,7 +8,8 @@ import automation.generator.LLMTestCaseGenerator;
 import automation.generator.LLMTestCaseGeneratorFromSwagger;
 import utils.FileUtils;
 import utils.SwaggerParser;
-import testData.SampleCodes;
+import testData.testJavaCode;
+import testData.testJiraStory;
 
 import java.util.Scanner;
 
@@ -27,16 +28,16 @@ public class TestAutomationPipeline {
         int option  = sc.nextInt();
         switch (option) {
             case 1:
-                seleniumToWebDriverIO(SampleCodes.userCode);
+                seleniumToWebDriverIO(testJavaCode.userCode);
                 break;
             case 2:
-                seleniumToPlayWright(SampleCodes.userCode);
+                seleniumToPlayWright(testJavaCode.userCode);
                 break;
             case 3:
-                seleniumToCypress(SampleCodes.userCode);
+                seleniumToCypress(testJavaCode.userCode);
                 break;
             case 4:
-                jiraToTestCase(SampleCodes.jiraStory);
+                jiraToTestCase(testJiraStory.jiraStory);
                 break;
             case 5:
                 swaggerToTestCase();
