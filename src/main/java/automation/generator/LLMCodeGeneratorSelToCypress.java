@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LLMTestGeneratorSelToPlaywright {
+public class LLMCodeGeneratorSelToCypress {
 
     private static final String LLM_API_URL = "https://api.groq.com/openai/v1/chat/completions";
     private static final String API_KEY = "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";
@@ -22,22 +22,22 @@ public class LLMTestGeneratorSelToPlaywright {
         if (seleniumData == null || seleniumData.isEmpty()) {
             return "No valid Selenium code to generate test cases.";
         }
-        String userPrompt = "Convert Selenium Java test automation code to Playwright TypeScript while preserving the logic and functionality:\n"
+        String userPrompt = "Convert Selenium Java test automation code to Cypress TypeScript while preserving the logic and functionality:\n"
                 + seleniumData;
-        String example = SampleCodes.seleniumToPlayWrightExample;
+        String example = SampleCodes.seleniumToCypressExample;
 
         try {
             List<Map<String, String>> messages = new ArrayList<>();
             Map<String, String> systemMessage = new HashMap<>();
             systemMessage.put("role", "system");
-            systemMessage.put("content", "Ensure that the converted code follows Playwright's best practices, including:"
+            systemMessage.put("content", "Ensure that the converted code follows Cypress's best practices, including:"
                     + "-- Proper async/await usage for handling asynchronous operations."
                     + "-- Selectors conversion (e.g., By.id() → page.locator() equivalent)."
-                    + "-- Handling of waits (Implicit/Explicit waits should be replaced with Playwright’s auto-waiting)."
-                    + "-- Assertions should be mapped to Playwright’s test assertions if applicable."
+                    + "-- Handling of waits (Implicit/Explicit waits should be replaced with Cypress’s auto-waiting)."
+                    + "-- Assertions should be mapped to Cypress’s test assertions if applicable."
                     + "-- Maintain proper TypeScript typings (Page, Browser, etc.) and use ES6+ features where appropriate"
                     + "-- Optimize code structure, removing unnecessary waits or redundant calls."
-                    + "-- The output must be idiomatic Playwright TypeScript, not just a direct Java-to-TypeScript translation"
+                    + "-- The output must be idiomatic Cypress TypeScript, not just a direct Java-to-TypeScript translation"
                     + "-- DO NOT add any additional steps other than given input code"
                     + "-- Disable strict mode violation when finding locators"
                     + "-- Example: "+example);
